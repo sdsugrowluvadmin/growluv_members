@@ -43,7 +43,7 @@ export default async function Home({
             GrowLuv Members
           </h1>
           <p className="mt-2 text-gluv-ink/70">
-            Browse points or verify via redID — emails and IDs stay private.
+            Search by name or RedID
           </p>
 
           {/* Search bar with dropdown */}
