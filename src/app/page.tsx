@@ -18,7 +18,7 @@ export default function Landing() {
           Educate. Eradicate. Empower.
         </h1>
         <p className="mt-3 text-slate-600 max-w-2xl mx-auto">
-          SDSU GrowLuv is a student organization committed to service, growth, and community.
+          SDSU GrowLuv is a student organization committed to service, growth, and community. Our goal is to create a movement to educate and eradicate human abuse while inspiring love and kindness globally. We believe that every life is precious, and that humanity is worth protecting and saving.
         </p>
 
         {/* CTAs */}
@@ -43,7 +43,7 @@ export default function Landing() {
         <div className="rounded-xl border p-6">
           <h3 className="font-semibold text-lg">Our Mission</h3>
           <p className="mt-2 text-slate-600">
-            We’re building leadership and service opportunities for SDSU students. Our goal is to create a movement to educate and eradicate human abuse while inspiring love and kindness globally. We believe that every life is precious, and that humanity is worth protecting and saving.
+            We’re building leadership and service opportunities for SDSU students.
           </p>
         </div>
         <div className="rounded-xl border p-6">
