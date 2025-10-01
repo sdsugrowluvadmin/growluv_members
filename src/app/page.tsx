@@ -7,9 +7,9 @@ export default function Landing() {
       {/* Hero */}
       <section className="text-center">
         <Image
-          src="/sdsu-growluv-logo.png"
+          src="/growluv-title.png"
           alt="SDSU GrowLuv"
-          width={800}
+          width={1000}
           height={300}
           className="mx-auto h-16 w-auto md:h-24"
           priority
