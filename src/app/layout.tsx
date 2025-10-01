@@ -1,34 +1,52 @@
+// src/app/layout.tsx
 import './globals.css';
 import Image from 'next/image';
 
 export const metadata = {
   title: 'GrowLuv Members',
-  description: 'Read-only member points and redID lookup',
+  description: 'Read-only member directory',
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
-      <body className="min-h-screen">
-        <header className="border-b bg-white/70 backdrop-blur sticky top-0 z-50">
-          <div className="relative h-12 md:h-16 w-[220px] md:w-[320px]">
+      <body className="min-h-screen bg-white text-slate-900">
+        {/* Header (global) */}
+        <header className="sticky top-0 z-40 border-b bg-white/80 backdrop-blur">
+          <div className="mx-auto max-w-5xl px-4 py-3 flex items-center gap-3">
+            {/* LOGO — scale here */}
+            <a href="/" aria-label="GrowLuv home" className="flex items-center gap-3">
               <Image
                 src="/sdsu-growluv-logo.png"
                 alt="GrowLuv"
-                fill                 // use fill instead of width/height
-                className="object-contain"
-                sizes="(min-width: 768px) 320px, 220px"  // help Next pick the right size
+                width={560}          // intrinsic ratio; can be any same-aspect pair
+                height={200}
+                className="h-10 w-auto md:h-14 lg:h-16"  // ← adjust sizes here
                 priority
-            />
-            <div className="ml-auto text-sm flex items-center gap-4">
-              <a href="/" className="text-gluv-ink/80 hover:text-gluv-ink">Home</a>
-            </div>
+              />
+              {/* Optional text lockup */}
+              <span className="hidden sm:inline text-base md:text-lg font-semibold tracking-tight">
+                Members Directory
+              </span>
+            </a>
+
+            {/* Right-side space for nav/actions */}
+            <nav className="ml-auto flex items-center gap-4">
+              <a href="/" className="text-sm text-slate-600 hover:text-slate-900">Home</a>
+              {/* add more links later */}
+            </nav>
           </div>
         </header>
-        <main>{children}</main>
-        <footer className="mt-16 border-t bg-white/60">
-          <div className="mx-auto max-w-5xl px-4 py-6 text-sm text-gluv-ink/70">
-            © {new Date().getFullYear()} GrowLuv · Built by Khoi Tran
+
+        {/* Page content */}
+        <main className="mx-auto max-w-5xl px-4 py-6">
+          {children}
+        </main>
+
+        {/* Footer (global) */}
+        <footer className="mt-16 border-t">
+          <div className="mx-auto max-w-5xl px-4 py-6 text-sm text-slate-600">
+            © {new Date().getFullYear()} GrowLuv · built by Khoi Tran
           </div>
         </footer>
       </body>
