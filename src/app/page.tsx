@@ -1,129 +1,64 @@
-import { getClient } from '@/lib/supabase';
-import RedIdLookup from './redid-lookup';
+// src/app/page.tsx
+import Image from 'next/image';
 
-export const dynamic = 'force-dynamic';
-
-type Params = { q?: string; by?: 'first' | 'last' | 'redid' };
-
-export default async function Home({
-  searchParams,
-}: {
-  searchParams: Promise<Params>;
-}) {
-  const params = await searchParams;
-  const by = (params.by ?? 'last') as Params['by'];
-  const q  = (params.q  ?? '').trim();
-
-  const supabase = getClient();
-
-  // Build table query (only meaningful when by !== 'redid')
-  let query = supabase
-    .from('public_members')
-    .select('last_name,first_name,points')
-    .order('last_name')
-    .order('first_name')
-    .limit(200);
-
-  if (q && by !== 'redid') {
-    if (by === 'first') {
-      query = query.ilike('first_name', `%${q}%`);
-    } else { // 'last'
-      query = query.ilike('last_name', `%${q}%`);
-    }
-  }
-
-  const { data, error } = await query;
-
+export default function Landing() {
   return (
-    <div>
-      {/* HERO */}
-      <section className="relative">
-        <div className="mx-auto max-w-5xl px-4 py-10 md:py-14">
-          <h1 className="text-3xl md:text-4xl font-semibold tracking-tight text-gluv-ink">
-            GrowLuv Members
-          </h1>
-          <p className="mt-2 text-gluv-ink/70">
-            Search by name or RedID
-          </p>
+    <main className="mx-auto max-w-5xl px-4 py-10">
+      {/* Hero */}
+      <section className="text-center">
+        <Image
+          src="/sdsu-growluv-logo.png"
+          alt="SDSU GrowLuv"
+          width={800}
+          height={300}
+          className="mx-auto h-16 w-auto md:h-24"
+          priority
+        />
+        <h1 className="mt-6 text-3xl md:text-4xl font-semibold tracking-tight">
+          Educate. Eradicate. Empower.
+        </h1>
+        <p className="mt-3 text-slate-600 max-w-2xl mx-auto">
+          SDSU GrowLuv is a student organization committed to service, growth, and community.
+        </p>
 
-          {/* Search bar with dropdown */}
-          <form className="mt-6 max-w-2xl" method="GET">
-            <div className="grid grid-cols-[140px_1fr_auto] gap-3 items-center">
-              <select
-                name="by"
-                defaultValue={by}
-                className="bg-white border border-gluv-blue/20 rounded-xl px-3 py-2"
-              >
-                <option value="last">Last name</option>
-                <option value="first">First name</option>
-                <option value="redid">redID</option>
-              </select>
-
-              <input
-                name="q"
-                defaultValue={q}
-                placeholder={
-                  by === 'redid'
-                    ? 'Enter redID (exact)'
-                    : by === 'first'
-                      ? 'Search by first name…'
-                      : 'Search by last name…'
-                }
-                className="bg-white border border-gluv-blue/20 rounded-xl px-3 py-2"
-              />
-
-              <button
-                className="rounded-xl px-4 py-2 bg-gluv-blue text-white hover:bg-gluv-blue2"
-                type="submit"
-              >
-                Search
-              </button>
-            </div>
-
-            {/* helper links */}
-            {q && (
-              <div className="mt-2 text-sm">
-                <a href="/" className="text-gluv-ink/60 hover:text-gluv-ink">Clear</a>
-              </div>
-            )}
-          </form>
+        {/* CTAs */}
+        <div className="mt-6 flex flex-wrap items-center justify-center gap-3">
+          <a
+            href="/members"
+            className="rounded-lg px-5 py-3 bg-slate-900 text-white hover:bg-slate-800"
+          >
+            View Members & Points
+          </a>
+          <a
+            href="#about"
+            className="rounded-lg px-5 py-3 border border-slate-300 hover:bg-slate-50"
+          >
+            Learn More
+          </a>
         </div>
       </section>
 
-      {/* RESULTS */}
-      <section className="mx-auto max-w-5xl px-4 pb-12">
-        {/* When 'redid', show the lookup card (client-side RPC) */}
-        {by === 'redid' ? (
-          <div className="max-w-xl">
-            <RedIdLookup initialRedId={q} />
-          </div>
-        ) : (
-          <div className="overflow-hidden rounded-2xl border border-gluv-blue/20 bg-white shadow-soft">
-            <table className="w-full text-sm">
-              <thead className="bg-gluv-bg">
-                <tr className="text-gluv-ink">
-                  <th className="text-left p-3">Last Name</th>
-                  <th className="text-left p-3">First Name</th>
-                  <th className="text-right p-3">Points</th>
-                </tr>
-              </thead>
-              <tbody>
-                {error && <tr><td className="p-3" colSpan={3}>Error loading members.</td></tr>}
-                {data?.map((r, i) => (
-                  <tr key={`${r.last_name}-${r.first_name}-${i}`} className="border-t border-gluv-blue/10 hover:bg-gluv-bg">
-                    <td className="p-3">{r.last_name}</td>
-                    <td className="p-3">{r.first_name}</td>
-                    <td className="p-3 text-right font-semibold text-gluv-ink">{r.points}</td>
-                  </tr>
-                ))}
-                {!error && (!data || data.length === 0) && (
-                  <tr><td className="p-3" colSpan={3}>No results.</td></tr>
-                )}
-              </tbody>
-            </table>
-          </div>
-        )}
+      {/* Simple sections you can expand later */}
+      <section id="about" className="mt-16 grid gap-8 md:grid-cols-3">
+        <div className="rounded-xl border p-6">
+          <h3 className="font-semibold text-lg">Our Mission</h3>
+          <p className="mt-2 text-slate-600">
+            We’re building leadership and service opportunities for SDSU students.
+          </p>
+        </div>
+        <div className="rounded-xl border p-6">
+          <h3 className="font-semibold text-lg">Activities</h3>
+          <p className="mt-2 text-slate-600">
+            Workshops, volunteering, campus events, and peer mentorship.
+          </p>
+        </div>
+        <div className="rounded-xl border p-6">
+          <h3 className="font-semibold text-lg">Join Us</h3>
+          <p className="mt-2 text-slate-600">
+            Attend a meeting, earn points, and grow with the community.
+          </p>
+        </div>
       </section>
-    </div>
+    </main>
   );
 }
