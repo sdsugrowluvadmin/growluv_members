@@ -1,36 +1,83 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# SDSU GrowLuv — Website & Members Directory
 
-## Getting Started
+A lightweight site for SDSU GrowLuv with a public landing page and a read-only members directory.
+Built with Next.js (App Router) + Supabase (Postgres + Auth) and deployed on Vercel.
 
-First, run the development server:
+## ✨ Features
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+  Landing page (/) with logo, tagline, and CTAs
+  
+  Members directory (/members)
+  
+  - Lists: Last Name · First Name · Points
+  
+  - Search by: last name / first name / redID (dropdown + input)
+  
+  - redID lookups keep IDs & emails private
+  
+  API: /api/search-redid (POST) — server route calling a Supabase RPC
+  
+  Global header with scalable logo (Next/Image) and sticky nav
+  
+  Simple, low-cost stack under ~$100/mo (Supabase free/low tier + Vercel free/low tier)
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 🧰 Tech Stack
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Next.js 15 (App Router) + TypeScript
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Tailwind CSS (utility classes for layout/spacing)
 
-## Learn More
+Supabase (Database + RPC)
 
-To learn more about Next.js, take a look at the following resources:
+Vercel (CI/CD + hosting)
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## 🗂 Project Structure
+    src/
+      app/
+        layout.tsx           # global HTML frame, header, footer, container
+        page.tsx             # landing page (/)
+        members/
+          page.tsx           # members directory page (/members)
+        api/
+          search-redid/
+            route.ts         # POST /api/search-redid (calls Supabase RPC)
+      lib/
+        supabase.ts          # getClient() wrapper for Supabase JS client
+      app/redid-lookup.tsx   # client component for redID search UI
+    
+    public/
+      sdsu-growluv-logo.png  # site logo (replace with your asset)
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## 🗃 Database Expectations (Supabase)
+Tables (example schema you’re using)
 
-## Deploy on Vercel
+members (private, full record)
+  - last_name (text)
+  - first_name (text)
+  - red_id (text, unique id users know)
+  - status (text) — optional
+  - sdsu_email (text) — optional
+  - points (integer)
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+public_members (view) — exposes only the public columns:
+  - last_name, first_name, points
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+RPC (search by redID)
+search_by_redid(p_redid text) → returns last_name, first_name, points for an exact redID match.
+  - This keeps redIDs off the public table but lets a member verify themselves.
+
+## 🔎 Members Directory (How it Works)
+
+src/app/members/page.tsx handles:
+  - Parsing ?by=first|last|redid and ?q=<term>
+  - Building the Supabase query against public_members for first/last searches
+  - Showing the redID lookup when by=redid (client component below)
+
+src/app/redid-lookup.tsx ('use client') calls /api/search-redid:
+  - POST with body: redid=... (application/x-www-form-urlencoded)
+  - Displays Name + Points or an error (“No match found.”)
+
+### Maintainers:
+    Khoi Tran
+    Sophia Phung
+    Katelyn Nguyen
