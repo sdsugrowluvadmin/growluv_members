@@ -1,5 +1,5 @@
 import { getClient } from '@/lib/supabase';
-import RedIdLookup from './redid-lookup';
+import RedIdLookup from '@/app/redid-lookup';
 
 export const dynamic = 'force-dynamic';
 
