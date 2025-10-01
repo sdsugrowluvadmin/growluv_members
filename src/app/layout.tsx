@@ -15,9 +15,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             <Image
               src="/sdsu-growluv-logo.png"
               alt="GrowLuv"
-              width={300}
-              height={300}
-              className="h-8 w-auto"
+              width={560}        // intrinsic size (any same-aspect numbers are fine)
+              height={200}
+              className="h-12 w-auto md:h-16"  // ↑ taller than your current h-8; larger on desktop
               priority
             />
             <div className="ml-auto text-sm flex items-center gap-4">
@@ -28,7 +28,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <main>{children}</main>
         <footer className="mt-16 border-t bg-white/60">
           <div className="mx-auto max-w-5xl px-4 py-6 text-sm text-gluv-ink/70">
-            © {new Date().getFullYear()} GrowLuv · Built with Next.js + Supabase
+            © {new Date().getFullYear()} GrowLuv · Built by Khoi Tran
           </div>
         </footer>
       </body>
