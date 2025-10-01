@@ -26,7 +26,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
               />
               {/* Optional text lockup */}
               <span className="hidden sm:inline text-base md:text-lg font-semibold tracking-tight">
-                Members Directory
+                GrowLuv at SDSU
               </span>
             </a>
 
