@@ -15,8 +15,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             <Image
               src="/sdsu-growluv-logo.png"
               alt="GrowLuv"
-              width={140}
-              height={50}
+              width={300}
+              height={300}
               className="h-8 w-auto"
               priority
             />
