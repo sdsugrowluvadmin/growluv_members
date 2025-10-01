@@ -11,14 +11,14 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="en">
       <body className="min-h-screen">
         <header className="border-b bg-white/70 backdrop-blur sticky top-0 z-50">
-          <div className="mx-auto max-w-5xl px-4 py-3 flex items-center gap-3">
-            <Image
-              src="/sdsu-growluv-logo.png"
-              alt="GrowLuv"
-              width={560}        // intrinsic size (any same-aspect numbers are fine)
-              height={200}
-              className="h-12 w-auto md:h-16"  // ↑ taller than your current h-8; larger on desktop
-              priority
+          <div className="relative h-12 md:h-16 w-[220px] md:w-[320px]">
+              <Image
+                src="/sdsu-growluv-logo.png"
+                alt="GrowLuv"
+                fill                 // use fill instead of width/height
+                className="object-contain"
+                sizes="(min-width: 768px) 320px, 220px"  // help Next pick the right size
+                priority
             />
             <div className="ml-auto text-sm flex items-center gap-4">
               <a href="/" className="text-gluv-ink/80 hover:text-gluv-ink">Home</a>
