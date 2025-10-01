@@ -35,7 +35,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 
         <footer className="mt-16 border-t">
           <div className="mx-auto max-w-5xl px-4 py-6 text-sm text-slate-600">
-            © {new Date().getFullYear()} SDSU GrowLuv
+            © {new Date().getFullYear()} SDSU GrowLuv - Built by Khoi Tran
           </div>
         </footer>
       </body>
