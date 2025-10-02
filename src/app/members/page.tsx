@@ -42,6 +42,31 @@ export default async function Home({
           <h1 className="text-3xl md:text-4xl font-semibold tracking-tight text-gluv-ink">
             GrowLuv Members
           </h1>
+          <section className="mb-6">
+            <div className="rounded-xl border bg-white p-5">
+              <h2 className="text-lg font-semibold tracking-tight">Membership Basics</h2>
+              <p className="mt-2 text-sm text-slate-700">
+                To be recognized as an <span className="font-medium">Active Member</span> and be eligible for benefits
+                like scholarships and awards, you’ll need to accrue <span className="font-semibold">15 points</span> during the year.
+              </p>
+          
+              <div className="mt-4">
+                <h3 className="text-sm font-semibold">How to earn points</h3>
+                <ul className="mt-2 list-disc pl-5 text-sm text-slate-700 space-y-1">
+                  <li><span className="font-medium">+1 point</span> for each GBM (General Body Meeting) attended.</li>
+                  <li><span className="font-medium">Events:</span> points <span className="italic">TBD</span> and announced per event.</li>
+                  <li>
+                    <span className="font-medium">+1 point</span> for posting the official flyer <span className="font-medium">and</span> attending the event.
+                    <span className="ml-1 text-slate-600">No point is awarded for posting only.</span>
+                  </li>
+                </ul>
+              </div>
+          
+              <p className="mt-4 text-sm text-slate-700">
+                That being said, <span className="font-semibold">everyone is welcome</span> at GrowLuv—come learn, connect, and get involved!
+              </p>
+            </div>
+          </section>
           <p className="mt-2 text-gluv-ink/70">
             Search by name or RedID
           </p>
